@@ -17,7 +17,7 @@ def configure_item(image_path, types):
     # features
     features = []
     for typ, cnt in types.items():
-        print(typ, cnt)
+        # print(typ, cnt)
         features.append({
             'type': typ,
             'maxResults': int(cnt),
