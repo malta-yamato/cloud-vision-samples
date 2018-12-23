@@ -51,3 +51,25 @@ def parse_request_vision_args():
         detection_types.update(TYPE_UNSPECIFIED=1)
 
     return input_loc, api_key, detection_types,
+
+
+def parse_structure_args(read_input=False):
+    # parse arguments
+    parser = argparse.ArgumentParser(description='find the structure of JSON')
+    if read_input:
+        parser.add_argument('input', help='JSON file you want to analyze.')
+    parser.add_argument('-f', '--filters', nargs='+', default=None,
+                        help='to use the filter, put key or index in order.')
+    args = parser.parse_args()
+
+    # input file
+    input_json = None
+    if read_input:
+        input_json = Path(args.input)
+        if not input_json.exists():
+            raise ValueError('file not found')
+
+    # filter
+    arg_filters = list(args.filters) if args.filters is not None else []
+
+    return input_json, arg_filters
