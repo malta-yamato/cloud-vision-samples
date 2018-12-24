@@ -30,10 +30,8 @@ def main():
     else:
         raise ValueError('can not open json data')
 
-    if len(extracted) == 1:
-        print(extracted[0])
-    elif len(extracted) > 1:
-        print(extracted)
+    for item in extracted:
+        print(json.dumps(item, ensure_ascii=False, indent=4))
 
 
 if __name__ == '__main__':
