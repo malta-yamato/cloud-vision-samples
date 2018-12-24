@@ -12,7 +12,7 @@ def main():
         data = sys.stdin.readlines()
 
     # parse arguments
-    input_loc, filters = parse_structure_args(data is None)
+    input_loc, filters, strict = parse_structure_args(data is None)
     # print(filters)
     filters.reverse()
 
@@ -26,13 +26,13 @@ def main():
 
     #
     if json_data is not None:
-        extracted = extract(json_data, filters)
+        extracted = extract(json_data, filters, strict)
     else:
         raise ValueError('can not open json data')
 
     if len(extracted) == 1:
         print(extracted[0])
-    else:
+    elif len(extracted) > 1:
         print(extracted)
 
 

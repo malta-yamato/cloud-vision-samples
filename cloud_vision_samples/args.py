@@ -60,6 +60,8 @@ def parse_structure_args(read_input=False):
         parser.add_argument('input', help='JSON file you want to analyze.')
     parser.add_argument('-f', '--filters', nargs='+', default=None,
                         help='to use the filter, put key or index in order.')
+    parser.add_argument('-s', '--strict', action="store_true",
+                        help='Use all keys, index strict filter')
     args = parser.parse_args()
 
     # input file
@@ -72,7 +74,10 @@ def parse_structure_args(read_input=False):
     # filter
     arg_filters = _parse_filters(args.filters)
 
-    return input_json, arg_filters
+    # strict
+    arg_strict = args.strict
+
+    return input_json, arg_filters, arg_strict
 
 
 def _parse_filters(args_filters):
