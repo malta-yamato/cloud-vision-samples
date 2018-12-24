@@ -128,6 +128,19 @@ class Joyson:
             self._filter.append(index_or_key)
 
 
+def extract(json_data, key_index_filter=None, strict_filter=False):
+    extracted = []
+
+    # noinspection PyUnusedLocal
+    def action(phase, depth, depth_filtered, element):
+        if phase == Joyson.Phase.IN_WHOLE:
+            extracted.append(element)
+            return Joyson.Termination.RETURN
+
+    Joyson.accept(json_data, Joyson(action, key_index_filter, strict_filter))
+    return extracted
+
+
 def structure(json_data, key_index_filter=None, strict_filter=False, writer=None):
     class ActionClass(Joyson.Action):
 
