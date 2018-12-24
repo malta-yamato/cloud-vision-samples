@@ -70,6 +70,20 @@ def parse_structure_args(read_input=False):
             raise ValueError('file not found')
 
     # filter
-    arg_filters = list(args.filters) if args.filters is not None else []
+    arg_filters = _parse_filters(args.filters)
 
     return input_json, arg_filters
+
+
+def _parse_filters(args_filters):
+    if args_filters is None:
+        return []
+
+    arg_filters = []
+    for item in args_filters:
+        if item[0] == '\\' and item[1:].isdecimal():
+            arg_filters.append(int(item[1:]))
+        else:
+            arg_filters.append(item)
+
+    return arg_filters
