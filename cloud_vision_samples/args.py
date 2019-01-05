@@ -92,3 +92,25 @@ def _parse_filters(args_filters):
             arg_filters.append(item)
 
     return arg_filters
+
+def parse_plot_vertices(read_json=False):
+    # parse arguments
+    parser = argparse.ArgumentParser(description='plot vertices on the picture')
+    parser.add_argument('image', help='image file path')
+    if read_json:
+        parser.add_argument('input', help='JSON file you want to analyze.')
+    args = parser.parse_args()
+
+    # image file
+    image_file = Path(args.image)
+    if not image_file.exists():
+        raise ValueError('file not found')
+
+    # input file
+    input_json = None
+    if read_json:
+        input_json = Path(args.input)
+        if not input_json.exists():
+            raise ValueError('file not found')
+
+    return image_file, input_json
